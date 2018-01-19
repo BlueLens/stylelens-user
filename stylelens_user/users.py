@@ -55,10 +55,8 @@ class Users(DataBaseUser):
       print(e)
       return None
 
-    if r is not None:
-      return str(r)
-    else:
-      return None
+    return str(r)
+
 
   def get_image(self, image_id):
     query = {}
@@ -80,10 +78,7 @@ class Users(DataBaseUser):
       print(e)
       return None
 
-    if r is not None:
-      return str(r)
-    else:
-      return None
+    return str(r)
 
   def get_object(self, object_id):
     query = {}

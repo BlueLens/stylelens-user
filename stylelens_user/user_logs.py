@@ -6,9 +6,12 @@ class UserLogs(DataBaseUserLog):
     super(UserLogs, self).__init__()
     self.logs = self.db.logs
 
-  def add_image_file_search_log(self, device_id, log):
-    log['device_id'] = device_id
+  def add_image_file_search_log(self, log):
     log['is_image_file_search'] = True
+
+    if log.get('device_id', None) is None:
+      print('Need a device_id')
+      return None
 
     try:
       r = self.logs.insert(log)
@@ -21,9 +24,12 @@ class UserLogs(DataBaseUserLog):
     else:
       return None
 
-  def add_image_index_search_log(self, device_id, log):
-    log['device_id'] = device_id
+  def add_image_index_search_log(self, log):
     log['is_image_index_search'] = True
+
+    if log.get('device_id', None) is None:
+      print('Need a device_id')
+      return None
 
     try:
       r = self.logs.insert(log)
