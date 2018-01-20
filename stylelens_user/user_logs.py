@@ -42,6 +42,24 @@ class UserLogs(DataBaseUserLog):
     else:
       return None
 
+  def add_object_id_search_log(self, log):
+    log['is_object_id_search'] = True
+
+    if log.get('device_id', None) is None:
+      print('Need a device_id')
+      return None
+
+    try:
+      r = self.logs.insert(log)
+    except Exception as e:
+      print(e)
+      return None
+
+    if r is not None:
+      return str(r)
+    else:
+      return None
+
   def get_image_file_search_images(self, offset=0, limit=10):
     query = {}
     query['is_image_file_search'] = True
