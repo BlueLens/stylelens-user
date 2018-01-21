@@ -11,7 +11,7 @@ class Users(DataBaseUser):
   def add_user(self, user):
     query = {}
 
-    query['device_id'] = user['d_id']
+    query['device_id'] = user['device_id']
 
     try:
       r = self.users.update_one(query,
@@ -25,6 +25,19 @@ class Users(DataBaseUser):
       return id
     else:
       return None
+
+  def increase_user_profile_category(self, device_id, category):
+
+    inc = {}
+    inc['category.' + category] = 1
+    try:
+      r = self.users.update_one({"device_id": device_id},
+                                  {"$inc": inc})
+    except Exception as e:
+      print(e)
+      return None
+
+    return r.raw_result
 
   def get_user_by_id(self, id):
     query = {}
