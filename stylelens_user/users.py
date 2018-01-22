@@ -39,6 +39,19 @@ class Users(DataBaseUser):
 
     return r.raw_result
 
+  def increase_user_profile_price(self, device_id, price):
+
+    inc = {}
+    inc['price.' + price] = 1
+    try:
+      r = self.users.update_one({"device_id": device_id},
+                                {"$inc": inc})
+    except Exception as e:
+      print(e)
+      return None
+
+    return r.raw_result
+
   def get_user_by_id(self, id):
     query = {}
     query['_id'] = ObjectId(id)
